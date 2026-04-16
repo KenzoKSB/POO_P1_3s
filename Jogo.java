@@ -31,6 +31,9 @@ public class Jogo {
         musicas.add(new Musica("Highway to Hell"));
         musicas.add(new Musica("Fear of the Dark"));
 
+        //verifica sempre se já tem um campeão
+        boolean campeao = false;
+
         //começa o loop
         while(true){
 
@@ -55,10 +58,6 @@ public class Jogo {
                     }
                     //independente do que ele fizer, ele vai tentar aprender uma musica
                     p1.aprenderMusica(musicas);
-
-                    if(!p1.segueVivo()){
-                        System.out.println(p1.nome + " morreu!");
-                    }
                 }
 
                 //o controlador das ações do Tico
@@ -80,13 +79,40 @@ public class Jogo {
                     }
 
                 p2.aprenderMusica(musicas);
-
-                if(!p2.segueVivo()){
-                    System.out.println(p2.nome + " morreu!");
-                }
             }
 
             //printa os aspectos e a mochila do personagem
+            System.out.println(p1);
+            System.out.println(p2);
+
+            //sorteia quem chamará o duelo
+            if(p1.segueVivo() && p2.segueVivo()){
+                int quem = gerador.nextInt(2);
+
+                if(quem == 0){
+                    p1.duelar(p2);
+                } 
+                else{
+                    p2.duelar(p1);
+                }
+            }
+
+            //controla a morte do Michel e a vitória de Tico
+            if(p1.segueVivo() == false && !campeao){
+                System.out.println(p1.nome + " morreu!");
+                System.out.println(p2.nome + " é o vencedor!");
+                campeao = true;
+            }
+
+            //controla a morte de Tico e a vitória do Michel
+            if(p2.segueVivo() == false && !campeao){
+                System.out.println(p2.nome + " morreu!");
+                System.out.println(p1.nome + " é o vencedor!");
+                campeao = true;
+            }
+
+            //mostra status pós duelo
+            System.out.println("-=-=-=-=-=-POS DUELO-=-=-=-=");
             System.out.println(p1);
             System.out.println(p2);
 

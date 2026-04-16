@@ -110,4 +110,31 @@ public class Personagem {
             System.out.println(nome + " aprendeu esta musica: " + m);
         }
     }
+    
+     //controla tudo da função de duelo
+    void duelar(Personagem adversario){
+        //se o repertorio de quem começou o duelo for vazio, cancela o duelo
+        if(repertorio.size() == 0){
+            System.out.println(nome + " não tem musicas para duelar");
+            return;
+        }
+
+        //se não, escolhe uma musica aleatoria do repertorio para o duelo
+        java.util.Random gerador = new java.util.Random();
+        Musica musica = repertorio.get(gerador.nextInt(repertorio.size()));
+        System.out.println(nome + " iniciou um duelo musical: " + musica);
+
+        //se o adversario conhecer, os dois perdem energia
+        if(adversario.repertorio.contains(musica)){
+            System.out.println("Ambos conhecem essa musica!");
+            energia--;
+            adversario.energia--;
+        } 
+        //se não, apenas o adversário perde, mas ganha uma musica nova
+        else {
+            System.out.println(adversario.nome + " não conhece essa musica, foi derrotado!");
+            adversario.energia--;
+            adversario.repertorio.add(musica);
+        }
+    }
 }
