@@ -17,6 +17,7 @@ public class Personagem {
         sono = 0;
     }
 
+    //cria o padrão para podermos incluir os status dos personagens na sua criação
     Personagem(int energia, int fome, int sono) {
         System.out.println("Construindo novo personagem");
         this.energia = energia < 0 || energia > 10 ? 10 : energia;

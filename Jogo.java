@@ -5,8 +5,14 @@ public class Jogo {
     public static void main(String[] args) throws InterruptedException {
 
         //cria o sujeito da classe personagem
-        Personagem p = new Personagem();
-        p.nome = "Michel";
+        Personagem p1 = new Personagem();
+        p1.nome = "Michel";
+
+        //cria o segundo personagem
+        Personagem p2 = new Personagem(3, 8, 8);
+        p2.nome = "Tico Trovador";
+        //nasce já sabendo uma música própria
+        p2.repertorio.add(new Musica("Aerials Trovador"));
 
         //cria gerador para o switch case
         Random gerador = new Random();
@@ -27,36 +33,72 @@ public class Jogo {
 
         //começa o loop
         while(true){
+
+            if(p1.segueVivo()){
     
-        //limita o gerador
-        int acao = gerador.nextInt(1, 4); 
+                //limita o gerador
+                int acao = gerador.nextInt(1, 4); 
 
-        switch(acao){
+                switch(acao){
 
-            case 1:
-                p.cacar();
-                break;
+                    case 1:
+                        p1.cacar();
+                        break;
 
-            case 2:
-                p.comer();
-                break;
+                    case 2:
+                        p1.comer();
+                        break;
 
-            case 3:
-                p.dormir();
-                break;
+                    case 3:
+                        p1.dormir();
+                        break;
+                    }
+                    //independente do que ele fizer, ele vai tentar aprender uma musica
+                    p1.aprenderMusica(musicas);
+
+                    if(!p1.segueVivo()){
+                        System.out.println(p1.nome + " morreu!");
+                    }
+                }
+
+                //o controlador das ações do Tico
+                if(p2.segueVivo()){
+                    int chance = gerador.nextInt(1, 11);
+
+                    switch(chance){
+                        case 1, 2:
+                            p2.cacar();
+                            break;
+
+                        case 3, 4:
+                            p2.comer();
+                            break;
+
+                        case 5, 6, 7, 8, 9, 10:
+                            p2.dormir();
+                            break;
+                    }
+
+                p2.aprenderMusica(musicas);
+
+                if(!p2.segueVivo()){
+                    System.out.println(p2.nome + " morreu!");
+                }
             }
-            //independente do que ele fizer, ele vai tentar aprender uma musica
-            p.aprenderMusica(musicas);
 
             //printa os aspectos e a mochila do personagem
-            System.out.println(p);
+            System.out.println(p1);
+            System.out.println(p2);
 
             //fica verificando se o personagem t[a vivo no loop
-            if(!p.segueVivo()){
+            if(!p1.segueVivo() && p2.segueVivo()){
                 //se morreu, vai anunciar sua morte e mostrar seu inventario final
-                System.out.println("***O PERSONAGEM MORREU***");
-                System.out.println("Inventario final: " + p.mochila);
-                System.out.println("Repertorio final: " + p.repertorio); //novo print de morte, exibindo a lista de musicas
+                System.out.println("***OS PERSONAGENS MORRERAM***");
+                System.out.println("Inventario final do Michel: " + p1.mochila);
+                System.out.println("Repertorio final do Michel: " + p1.repertorio); //novo print de morte, exibindo a lista de musicas
+                //os prints da morte do segundo personagem
+                System.out.println("Inventario final do Tico Trovador: " + p2.mochila);
+                System.out.println("Repertorio final do Tico Trovador: " + p2.repertorio);
                 break; // encerra o loop
             }
 
