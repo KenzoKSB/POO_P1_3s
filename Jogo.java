@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Jogo {
     public static void main(String[] args) throws InterruptedException {
@@ -9,6 +10,20 @@ public class Jogo {
 
         //cria gerador para o switch case
         Random gerador = new Random();
+
+        //cria a lista das musicas
+        ArrayList<Musica> musicas = new ArrayList<>();
+        //os elementos da lista de musica
+        musicas.add(new Musica("Jeremy"));
+        musicas.add(new Musica("Stairway to Heaven"));
+        musicas.add(new Musica("Numb"));
+        musicas.add(new Musica("Dream On"));
+        musicas.add(new Musica("Black"));
+        musicas.add(new Musica("Smells Like Teen Spirit"));
+        musicas.add(new Musica("Californication"));
+        musicas.add(new Musica("In the End"));
+        musicas.add(new Musica("Highway to Hell"));
+        musicas.add(new Musica("Fear of the Dark"));
 
         //começa o loop
         while(true){
@@ -30,6 +45,8 @@ public class Jogo {
                 p.dormir();
                 break;
             }
+            //independente do que ele fizer, ele vai tentar aprender uma musica
+            p.aprenderMusica(musicas);
 
             //printa os aspectos e a mochila do personagem
             System.out.println(p);
@@ -39,6 +56,7 @@ public class Jogo {
                 //se morreu, vai anunciar sua morte e mostrar seu inventario final
                 System.out.println("***O PERSONAGEM MORREU***");
                 System.out.println("Inventario final: " + p.mochila);
+                System.out.println("Repertorio final: " + p.repertorio); //novo print de morte, exibindo a lista de musicas
                 break; // encerra o loop
             }
 

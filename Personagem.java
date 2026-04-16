@@ -7,6 +7,7 @@ public class Personagem {
     private int fome;
     private int sono;
     ArrayList<String> mochila = new ArrayList<>();
+    ArrayList<Musica> repertorio = new ArrayList<>(); //nova array para poder guardar as musicas
    
     //padrão dos aspectos pra um personagem
     Personagem(){
@@ -83,13 +84,29 @@ public class Personagem {
     //controla a impressão dos status do personagem e da mochila dele, agora com a musica incluida
     public String toString(){  
         return String.format(
-            "%s: e:%d, f:%d, s:%d, mochila:%s",
-            nome, energia, fome, sono, mochila);
+            "%s: e:%d, f:%d, s:%d, mochila:%s, repertorio:%s",
+            nome, energia, fome, sono, mochila, repertorio);
     }
 
     //usa o boolean pra ter uma resposta binaria pra saber se o personagem continua vivo
     boolean vivo = true;  
     boolean segueVivo(){
     return energia > 0;
+    }
+
+    //controla tudo da função de aprender musica
+    void aprenderMusica(ArrayList<Musica> playlist){ 
+        Random gerador = new Random();
+        Musica m = playlist.get(gerador.nextInt(playlist.size()));
+
+        //se a musica que ele tentou aprender já estiver na lista dele, ele não aprende
+        if(repertorio.contains(m)){
+            System.out.println(nome + " ja conhece esta musica: " + m);
+        } 
+        //se não, ele aprende e acrescenta na lista
+        else {
+            repertorio.add(m);
+            System.out.println(nome + " aprendeu esta musica: " + m);
+        }
     }
 }
