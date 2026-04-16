@@ -33,6 +33,15 @@ public class Jogo {
 
             //printa os aspectos e a mochila do personagem
             System.out.println(p);
+
+            //fica verificando se o personagem t[a vivo no loop
+            if(!p.segueVivo()){
+                //se morreu, vai anunciar sua morte e mostrar seu inventario final
+                System.out.println("***O PERSONAGEM MORREU***");
+                System.out.println("Inventario final: " + p.mochila);
+                break; // encerra o loop
+            }
+
             System.out.println("**********************");
             Thread.sleep(5000);
         }

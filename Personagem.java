@@ -86,4 +86,10 @@ public class Personagem {
             "%s: e:%d, f:%d, s:%d, mochila:%s",
             nome, energia, fome, sono, mochila);
     }
+
+    //usa o boolean pra ter uma resposta binaria pra saber se o personagem continua vivo
+    boolean vivo = true;  
+    boolean segueVivo(){
+    return energia > 0;
+    }
 }
