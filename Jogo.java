@@ -5,11 +5,11 @@ public class Jogo {
     public static void main(String[] args) throws InterruptedException {
 
         //cria o sujeito da classe personagem
-        Personagem p1 = new Personagem();
+        Personagem p1 = new Cacador();
         p1.nome = "Michel";
 
         //cria o segundo personagem
-        Personagem p2 = new Personagem(3, 8, 8);
+        Personagem p2 = new Bardo(3, 8, 8);
         p2.nome = "Tico Trovador";
         //nasce já sabendo uma música própria
         p2.repertorio.add(new Musica("Aerials Trovador"));
@@ -37,48 +37,12 @@ public class Jogo {
         //começa o loop
         while(true){
 
-            if(p1.segueVivo()){
-    
-                //limita o gerador
-                int acao = gerador.nextInt(1, 4); 
+            if (p1.segueVivo()) {
+                p1.realizarAcaoAleatoria(musicas); //realiza o metodo sem saber o tipo de personagem
+            }
 
-                switch(acao){
-
-                    case 1:
-                        p1.cacar();
-                        break;
-
-                    case 2:
-                        p1.comer();
-                        break;
-
-                    case 3:
-                        p1.dormir();
-                        break;
-                    }
-                    //independente do que ele fizer, ele vai tentar aprender uma musica
-                    p1.aprenderMusica(musicas);
-                }
-
-                //o controlador das ações do Tico
-                if(p2.segueVivo()){
-                    int chance = gerador.nextInt(1, 11);
-
-                    switch(chance){
-                        case 1, 2:
-                            p2.cacar();
-                            break;
-
-                        case 3, 4:
-                            p2.comer();
-                            break;
-
-                        case 5, 6, 7, 8, 9, 10:
-                            p2.dormir();
-                            break;
-                    }
-
-                p2.aprenderMusica(musicas);
+            if (p2.segueVivo()) {
+                p2.realizarAcaoAleatoria(musicas); //agora com o bardo
             }
 
             //printa os aspectos e a mochila do personagem
@@ -117,7 +81,7 @@ public class Jogo {
             System.out.println(p2);
 
             //fica verificando se o personagem t[a vivo no loop
-            if(!p1.segueVivo() && p2.segueVivo()){
+            if(!p1.segueVivo() && !p2.segueVivo()){
                 //se morreu, vai anunciar sua morte e mostrar seu inventario final
                 System.out.println("***OS PERSONAGENS MORRERAM***");
                 System.out.println("Inventario final do Michel: " + p1.mochila);

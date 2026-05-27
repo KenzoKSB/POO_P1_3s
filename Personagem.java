@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Personagem {
+public abstract class Personagem {
     String nome;
-    private int energia;
-    private int fome;
-    private int sono;
+    protected int energia;
+    protected int fome;
+    protected int sono;
     ArrayList<String> mochila = new ArrayList<>();
     ArrayList<Musica> repertorio = new ArrayList<>(); //nova array para poder guardar as musicas
-   
+    Random gerador = new Random();
+
     //padrão dos aspectos pra um personagem
     Personagem(){
         System.out.println("Construindo novo personagem");
@@ -35,7 +36,6 @@ public class Personagem {
             
             //em caso de sucesso, item para a mochila
             String[] itens = {"pena", "couro", "osso", "presa", "garra"};
-            Random gerador = new Random();
             String item = itens[gerador.nextInt(itens.length)];
             mochila.add(item);
         
@@ -83,6 +83,7 @@ public class Personagem {
     }
 
     //controla a impressão dos status do personagem e da mochila dele, agora com a musica incluida
+    @Override
     public String toString(){  
         return String.format(
             "%s: e:%d, f:%d, s:%d, mochila:%s, repertorio:%s",
@@ -90,14 +91,12 @@ public class Personagem {
     }
 
     //usa o boolean pra ter uma resposta binaria pra saber se o personagem continua vivo
-    boolean vivo = true;  
     boolean segueVivo(){
-    return energia > 0;
+        return energia > 0;
     }
 
     //controla tudo da função de aprender musica
     void aprenderMusica(ArrayList<Musica> playlist){ 
-        Random gerador = new Random();
         Musica m = playlist.get(gerador.nextInt(playlist.size()));
 
         //se a musica que ele tentou aprender já estiver na lista dele, ele não aprende
@@ -120,7 +119,6 @@ public class Personagem {
         }
 
         //se não, escolhe uma musica aleatoria do repertorio para o duelo
-        java.util.Random gerador = new java.util.Random();
         Musica musica = repertorio.get(gerador.nextInt(repertorio.size()));
         System.out.println(nome + " iniciou um duelo musical: " + musica);
 
@@ -137,4 +135,6 @@ public class Personagem {
             adversario.repertorio.add(musica);
         }
     }
+    //métodos abstratos
+    abstract void realizarAcaoAleatoria(ArrayList<Musica> playlist);
 }
