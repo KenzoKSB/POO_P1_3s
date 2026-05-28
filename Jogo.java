@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Jogo {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
 
         //cria o sujeito da classe personagem
         Personagem p1 = new Cacador();
@@ -17,19 +17,8 @@ public class Jogo {
         //cria gerador para o switch case
         Random gerador = new Random();
 
-        //cria a lista das musicas
-        ArrayList<Musica> musicas = new ArrayList<>();
-        //os elementos da lista de musica
-        musicas.add(new Musica("Jeremy"));
-        musicas.add(new Musica("Stairway to Heaven"));
-        musicas.add(new Musica("Numb"));
-        musicas.add(new Musica("Dream On"));
-        musicas.add(new Musica("Black"));
-        musicas.add(new Musica("Smells Like Teen Spirit"));
-        musicas.add(new Musica("Californication"));
-        musicas.add(new Musica("In the End"));
-        musicas.add(new Musica("Highway to Hell"));
-        musicas.add(new Musica("Fear of the Dark"));
+        MusicaDAO dao = new MusicaDAO(); //chama a classe responsavel pelo SGBD
+        ArrayList<Musica> musicas = dao.listar();
 
         //verifica sempre se já tem um campeão
         boolean campeao = false;
